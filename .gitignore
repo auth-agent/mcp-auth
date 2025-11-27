@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.Python
+venv/
+.venv/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Environment variables
+.env
+.env.local
+.dev.vars
+
+# IDE
+.DS_Store
+*.swp
+
+# Cloudflare
+.wrangler/
+
+# Logs
+*.log

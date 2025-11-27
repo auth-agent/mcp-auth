@@ -1,0 +1,57 @@
+{
+  "name": "auth-agent-mcp-sdk",
+  "version": "1.0.0",
+  "description": "OAuth 2.1 middleware for MCP servers using Auth-Agent",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "vitest",
+    "lint": "eslint src",
+    "format": "prettier --write src"
+  },
+  "keywords": [
+    "oauth",
+    "mcp",
+    "authorization",
+    "express",
+    "hono",
+    "middleware"
+  ],
+  "author": "Auth-Agent Team <hetkp8044@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/auth-agent/auth-agent-mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/auth-agent/auth-agent-mcp/issues"
+  },
+  "homepage": "https://docs.auth-agent.com/mcp",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "dependencies": {},
+  "peerDependencies": {
+    "hono": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "hono": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.0",
+    "hono": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

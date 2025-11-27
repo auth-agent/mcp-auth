@@ -1,0 +1,17 @@
+name = "auth-agent-mcp"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "auth-agent-mcp-production"
+route = "mcp.auth-agent.com/*"
+vars = { ENVIRONMENT = "production", ISSUER_URL = "https://mcp.auth-agent.com" }
+
+[env.development]
+name = "auth-agent-mcp-dev"
+vars = { ENVIRONMENT = "development", ISSUER_URL = "http://localhost:8788" }
+
+# Secrets (set via: wrangler secret put SECRET_NAME --env ENV_NAME)
+# - SUPABASE_URL
+# - SUPABASE_SERVICE_KEY
+# - JWT_SECRET

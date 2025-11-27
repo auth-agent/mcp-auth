@@ -1,0 +1,4 @@
+include README.md
+include LICENSE
+recursive-include auth_agent_mcp *.py
+recursive-include auth_agent_mcp py.typed
