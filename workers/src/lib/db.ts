@@ -117,9 +117,56 @@ export class Database {
   // ==========================================================================
 
   async getServerKeyBySecret(keySecret: string): Promise<McpServerKey | null> {
-    // This would require checking the key_hash, implementation depends on your needs
-    // For now, simplified version
+    // Get all server keys and verify the hash
+    // Note: In production, use a key format like "keyId.secret" for efficient lookup
+    const response = await fetch(
+      `${this.supabaseUrl}/rest/v1/mcp_server_keys?select=*`,
+      {
+        headers: {
+          'apikey': this.supabaseKey,
+          'Authorization': `Bearer ${this.supabaseKey}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const keys = await response.json() as McpServerKey[];
+    
+    // Import verifySecret dynamically to avoid circular dependency
+    const { verifySecret } = await import('./crypto');
+    
+    // Check each key's hash against the provided secret
+    for (const key of keys) {
+      // Skip expired keys
+      if (key.expires_at && new Date(key.expires_at) < new Date()) {
+        continue;
+      }
+      
+      const isValid = await verifySecret(keySecret, key.key_hash);
+      if (isValid) {
+        return key;
+      }
+    }
+    
     return null;
+  }
+
+  async updateServerKeyLastUsed(keyId: string): Promise<void> {
+    await fetch(
+      `${this.supabaseUrl}/rest/v1/mcp_server_keys?key_id=eq.${keyId}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': this.supabaseKey,
+          'Authorization': `Bearer ${this.supabaseKey}`,
+        },
+        body: JSON.stringify({ last_used_at: new Date().toISOString() }),
+      }
+    );
   }
 
   async createServerKey(params: {
