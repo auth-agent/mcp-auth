@@ -74,6 +74,8 @@ curl -X POST https://mcp.auth-agent.com/api/servers/srv_abc123/keys \
 }
 ```
 
+> ⚠️ **Note:** The values above (`srv_abc123`, `sk_xyz789`, `sk_YyVw88...`) are example placeholders. Real API calls will return unique, randomly generated credentials.
+
 #### 3. Add Middleware (3 Lines of Code!)
 
 **Python (FastAPI):**
